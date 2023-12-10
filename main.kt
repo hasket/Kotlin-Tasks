@@ -1,5 +1,3 @@
-import java.util.*
-
 class CoffeeMachine {
     private var scanner = Scanner(System.`in`)
     private var water: Int = 0
@@ -10,27 +8,26 @@ class CoffeeMachine {
         fun cookingCoffee(coffeeRecipe: CoffeeRecipe)
     }
 
-    fun interface CheckCoffeeResource{
+    fun interface CheckCoffeeResource {
         fun checkingConffeeResource(coffeeRecipe: CoffeeRecipe): String
     }
 
     // Начните написание программы с публичной функции start().
 
 
-    fun createCoffee(){
+    fun createCoffee() {
         println("Введите название напитка или \"назад\" для возврата в главное меню")
-        var coffeeName = scanner.nextLine()
         val checkResource = CoffeeMachine.CheckCoffeeResource {
-            when(true){
+            when (true) {
                 (this.water < it.water) -> "Недостаточно воды!"
                 (this.milk < it.milk) -> "Недостаточно молока!"
                 (this.beans < it.beans) -> "Недостаточно кофе!"
                 else -> "false"
             }
         }
-        val coffeeMachine = CoffeeMachine.CookCoffee{
+        val coffeeMachine = CoffeeMachine.CookCoffee {
             val checkCoffee = checkResource.checkingConffeeResource(it)
-            if ( checkCoffee == "false"){
+            if (checkCoffee == "false") {
                 this.water -= it.water
                 this.milk -= it.milk
                 this.beans -= it.beans
@@ -39,7 +36,8 @@ class CoffeeMachine {
                 println(checkCoffee)
             }
         }
-        when(coffeeName.lowercase()){
+        var coffeeName = scanner.nextLine()
+        when (coffeeName.lowercase()) {
             "назад" -> return
             "эспрессо" -> coffeeMachine.cookingCoffee(CoffeeRecipe.ESPRESSO)
             "американо" -> coffeeMachine.cookingCoffee(CoffeeRecipe.AMERICANO)
@@ -49,30 +47,31 @@ class CoffeeMachine {
         }
     }
 
-    fun fillCoffeeMachine(){
+    fun fillCoffeeMachine() {
         this.water += (2000 - this.water)
         this.milk += (1000 - this.milk)
         this.beans += (500 - this.beans)
         println("Ингридиенты пополнены")
     }
 
-    fun status(){
+    fun status() {
         println("Ингридиентов осталось:")
         println("${this.water} мл воды\n${this.milk} мл молока\n${this.beans} гр кофе")
     }
 
-    fun start(): String{
+    fun start() {
         println("Кофемашина готова к работе")
-        while (true){
+        while (true) {
             println("Введите команду")
             var command = scanner.nextLine()
             when (command.lowercase()) {
                 "кофе" -> createCoffee()
-                "выключить" -> return "До свидания!"
+                "выключить" -> break
                 "наполнить" -> fillCoffeeMachine()
                 "статус" -> status()
             }
         }
+        println("До свидания!")
     }
 
 }
@@ -82,7 +81,7 @@ enum class CoffeeRecipe(
     val water: Int,
     val milk: Int,
     val beans: Int
-){
+) {
     ESPRESSO("Эспрессо ", 60, 0, 10),
     AMERICANO("Американо", 120, 0, 10),
     KAPUCHINO("Капучино", 120, 60, 20),
