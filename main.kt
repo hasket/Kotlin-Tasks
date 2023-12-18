@@ -1,10 +1,6 @@
 import java.net.URL
 import kotlin.random.Random
 
-fun main() {
-
-}
-
 // создайте класс Card, который содержит в конструкторе одно поле numbers
 class Card(val numbers: Map<Int, Set<Int>>)
 // поле numbers — это Map, в которой в качестве ключа номер ряда (1 - 3), а в качестве значения набор чисел
@@ -15,11 +11,6 @@ class Card(val numbers: Map<Int, Set<Int>>)
 // в теле класса создайте поле card класса Card. При создании экземпляра класса оно должно генерироваться с помощью метода createCard()
 class Person(name: String){
     val card = createCard()
-
-
-    init {
-
-    }
 
     fun createCard(): Card{
         val cardOfPerson = mutableMapOf<Int, MutableSet<Int>>(
